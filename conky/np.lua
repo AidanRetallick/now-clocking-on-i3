@@ -4,12 +4,12 @@ conky.config = {
     update_interval = 1,
 
     -- Positioning
-    alignment = 'bottom_left',
-    gap_x = 50,
-    gap_y = 85,
-    minimum_width = 1200,
-    maximum_width = 1200,
-    minimum_height = 200,
+    alignment = 'bottom_right',
+    gap_x = 40,
+    gap_y = 70,
+    minimum_width = 400,
+    maximum_width = 500,
+    minimum_height = 100,
 
     -- Draw settings
     double_buffer = true,
@@ -19,10 +19,10 @@ conky.config = {
     -- Compositor settings
     own_window = true,
     own_window_argb_visual = true,
-    own_window_argb_value = 0,
-    own_window_transparent = true,
-    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
-    own_window_type = 'dock',
+    own_window_argb_value = 155,
+    own_window_colour = '001016',
+    own_window_transparent = false,
+    own_window_hints = 'undecorated,sticky,skip_taskbar,skip_pager',
 
     -- Text settings
     uppercase = true,
@@ -31,10 +31,13 @@ conky.config = {
 };
 
 conky.text = [[
-${if_running spotify}${color #fff}${font Gotham Book:pixelsize=18}NOW PLAYING:
-${color #fff}${font Gotham Book:pixelsize=15}
-${color #fff}${font Gotham:style=bold:pixelsize=44}           ${font Gotham:style=bold:pixelsize=46}${exec playerctl -p spotify metadata artist}${font Gotham:style=bold:pixelsize=10}
-${color #fff}${font Gotham Book:pixelsize=44}           ${font Gotham Book:pixelsize=23}${exec playerctl -p spotify metadata title}
+${if_running spotify}${voffset -15}
+${color #fff}${font Gotham Book:pixelsize=18} NOW PLAYING:
+${color #fff}${font Gotham Book:pixelsize=5}
+${color #fff}${font Gotham:style=bold:pixelsize=26}               ${font Gotham:style=bold:pixelsize=26}${exec playerctl -p spotify metadata artist}${font Gotham:style=bold:pixelsize=10} ${voffset 4}
+${color #fff}${font Gotham Book:pixelsize=26}               ${font Gotham Book:pixelsize=16}${exec playerctl -p spotify metadata title} 
+${color #fff}${font Gotham Book:pixelsize=26}               ${font Gotham Book:pixelsize=16}[ ${exec playerctl -p spotify metadata album} ] ${voffset -40}
+${exec ./scripts/fetch-art spotify}	${image ./data/spotify.png -p 6,30 -s 100x100 -n}
 
 ${else}${if_match "" != "${exec playerctl -p spotifyd status}"}${color #fff}${font Gotham Book:pixelsize=18}NOW PLAYING:
 ${color #fff}${font Gotham Book:pixelsize=15}
